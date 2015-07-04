@@ -1,4 +1,4 @@
-<div>
+<div ng-controller="RegisterCtrl">
   <h2>Register your disaster <md-button class="md-raised md-primary">save</md-button></h2>
   <md-content layout-padding>
     <div layout layout-sm="column">
@@ -25,7 +25,7 @@
     </div>
     <div layout layout-sm="column">
       <md-list flex>
-        <md-list-item layout layout-sm="column">
+        <md-list-item layout layout-sm="column" ng-repeat="item in disaster.items">
           <md-input-container flex>
             <label>What is required?</label>
             <input ng-model="item.required">
@@ -35,12 +35,12 @@
             <input ng-model="item.details">
           </md-input-container>
         </md-list-item>
-        <md-divider></md-divider>
       </md-list>
-      <div flex="20">
-        <md-button class="md-raised">+</md-button>
-        <md-button class="md-raised">-</md-button>
+      <div flex="30">
+        <md-button ng-click="push()" class="md-raised md-primary">add</md-button>
+        <md-button ng-click="pop()" lass="md-raised md-secondary">remove</md-button>
       </div>
     </div>
+    <!--<pre>{{ disaster }}</pre>-->
   </md-content>
 </div>

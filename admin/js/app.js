@@ -27,9 +27,22 @@ app.controller('MainCtrl', ['$route', '$routeParams', '$location',
     this.params = $routeParams;
 }]);
 
-app.controller('SideNavCtrl', function($scope, $mdDialog) {
+app.controller('SideNavCtrl', function($scope) {
   $scope.disasters = [
     { id: 'bf001', name: 'Dereel', type: 'bushfire', active: true },
     { id: 'eq001', name: 'Wellington', type: 'earthquake', active: false }
   ];
+});
+
+app.controller('RegisterCtrl', function($scope) {
+  $scope.disaster = {'items':[]};
+  $scope.push = function () {
+    $scope.disaster.items.push({
+      required: "",
+      details: ""
+    });
+  };
+  $scope.pop = function () {
+    $scope.disaster.items.pop();
+  };
 });
