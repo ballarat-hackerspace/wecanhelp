@@ -1,5 +1,5 @@
 <h1>{{ disasters[uuid].name }}</h1>
 <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
 <p>{{ disasters[uuid].details }}</p>
-<md-button class="md-button md-raised md-primary" href="#/require/{{ uuid }}" ng-if="required">Offer Help</md-button>
-<md-button class="md-button md-raised md-primary" ng-disabled="true" href="#/require/{{ uuid }}" ng-if="!required">Volunteers not required yet</md-button>
+<md-button class="md-button md-raised md-primary" href="#/request/{{ uuid }}" ng-if="required">Offer Help</md-button>
+<md-button class="md-button md-raised md-primary" ng-disabled="true" ng-if="!required">Volunteers not required yet</md-button>
