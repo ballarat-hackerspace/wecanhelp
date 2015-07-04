@@ -45,7 +45,7 @@ app.controller('SideNavCtrl', function($scope) {
 });
 
 app.controller('RegisterCtrl', function($scope) {
-  $scope.disaster = {'items':[]};
+  $scope.disaster = {'items':[{}]};
   $scope.push = function () {
     $scope.disaster.items.push({
       required: "",
