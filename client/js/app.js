@@ -49,29 +49,41 @@ var app = angular.module('WeCanHelpApp', ['firebase', 'ngMaterial', 'ngRoute', '
   });
 
 
-app.controller('AppCtrl', ['$firebaseObject', '$scope', '$mdSidenav', function($firebaseObject, $scope, $mdSidenav){
-  var ref = new Firebase("https://we-can-help.firebaseio.com/disasters");
-  $scope.disasters = $firebaseObject(ref);
-
+app.controller('AppCtrl', ['$firebaseObject', '$scope', '$mdSidenav', function($scope, $mdSidenav){
   $scope.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
   };
 }]);
 
-app.controller('ConfirmCtrl', ['$scope', function($scope){
+app.controller('ConfirmCtrl', ['$firebaseObject', '$scope', '$routeParams', function($firebaseObject, $scope, $routeParams) {
+  $scope.uuid = $routeParams.uuid;
 }]);
 
-app.controller('LandingCtrl', ['$scope', '$location', function($scope, $location){
+app.controller('LandingCtrl', ['$firebaseObject', '$scope', function($firebaseObject, $scope){
+  var ref = new Firebase("https://we-can-help.firebaseio.com/disasters");
+  $scope.disasters = $firebaseObject(ref);
+
   $scope.go = function (path) {
     $location.path(path);
   };
 }]);
 
-app.controller('NeededCtrl', ['$scope', function($scope){
-  $scope.map = { center: { latitude: -37.816215, longitude: 143.755160 }, zoom: 12 };
+app.controller('NeededCtrl', ['$firebaseObject', '$scope', '$routeParams', function($firebaseObject, $scope, $routeParams){
+  $scope.uuid = $routeParams.uuid;
+  $scope.map = {};
+
+  var ref = new Firebase("https://we-can-help.firebaseio.com/disasters");
+  $scope.disasters = $firebaseObject(ref);
+
+  $scope.disasters.$loaded(function() {
+    $scope.map = { center: $scope.disasters[$scope.uuid].latlong, zoom: 12 };
+    console.log($scope.map);
+  });
 }]);
 
-app.controller('RequestCtrl', ['$scope', function($scope){
+
+app.controller('RequestCtrl', ['$firebaseObject', '$scope', '$routeParams', function($firebaseObject, $scope, $routeParams){
+  $scope.uuid = $routeParams.uuid;
   $scope.data = {
     title: "Dereel Bushfires",
     description: "We are looking for volunteers who can provide or assist with the following resources:",
@@ -92,7 +104,7 @@ app.controller('RequestCtrl', ['$scope', function($scope){
   };
 }]);
 
-app.controller('RequireCtrl', ['$scope', function($scope){
-  $scope.map = { center: { latitude: -37.816215, longitude: 143.755160 }, zoom: 12 };
+app.controller('RequireCtrl', ['$firebaseObject', '$scope', '$routeParams', function($firebaseObject, $scope, $routeParams){
+  $scope.uuid = $routeParams.uuid;
 }]);
 
