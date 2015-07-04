@@ -1,11 +1,15 @@
 var app = angular.module('WeCanHelpApp', ['ngMaterial', 'ngRoute'])
 
-app.config(['$routeProvider', '$locationProvider',
-  function($routeProvider, $locationProvider) {
+app.config(['$routeProvider', function($routeProvider) {
     $routeProvider
-      .when('/register', {
+      .when('/disaster', {
         templateUrl: 'register.html',
         controller: 'MainCtrl'
+      })
+      .when('/disaster/:disasterId', {
+        templateUrl: 'disaster.html',
+        controller: 'MainCtrl',
+        controllerAs: 'disaster'
       })
       .otherwise({redirectTo: '/'});
 }]);
@@ -20,22 +24,12 @@ app.controller('MainCtrl', ['$route', '$routeParams', '$location',
   function($route, $routeParams, $location) {
     this.$route = $route;
     this.$location = $location;
-    this.$routeParams = $routeParams;
+    this.params = $routeParams;
 }]);
 
 app.controller('SideNavCtrl', function($scope, $mdDialog) {
   $scope.disasters = [
-    { name: 'Dereel', type: 'bushfire', active: true },
-    { name: 'Wellington', type: 'earthquake', active: false }
+    { id: 'bf001', name: 'Dereel', type: 'bushfire', active: true },
+    { id: 'eq001', name: 'Wellington', type: 'earthquake', active: false }
   ];
-  $scope.itemClick = function(event) {
-    $mdDialog.show(
-      $mdDialog.alert()
-        .title('Secondary Action')
-        .content('Secondary actions can be used for one click actions')
-        .ariaLabel('Secondary click demo')
-        .ok('Neat!')
-        .targetEvent(event)
-    );
-  };
 });
