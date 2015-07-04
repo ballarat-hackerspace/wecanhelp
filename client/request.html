@@ -1,0 +1,14 @@
+<h1>{{data.title}}</h1>
+<p>{{data.description}}</p>
+
+<md-list>
+  <md-list-item ng-repeat="resource in data.resources">
+    <md-checkbox ng-model="resource.selected" aria-label="{{resource.name}}"></md-checkbox>
+    <p>{{resource.name}}</p>
+    <md-icon class="md-secondary" ng-click="doSecondaryAction($event)" aria-label="Chat" md-font-icon="android"></md-icon>
+    <md-icon md-font-icon="android" aria-label="android"></md-icon>
+  </md-list-item>
+</md-list>
+
+<md-button class="md-warn md-fab md-fab-bottom-left">Sorry</md-button>
+<md-button class="md-primary md-fab md-fab-bottom-right">Yes</md-button>
