@@ -63,7 +63,7 @@ app.controller('DisasterCtrl', ['$scope', '$firebaseObject', '$route', '$routePa
 app.controller('RegisterCtrl', function($scope) {
   var ref = new Firebase("https://we-can-help.firebaseio.com/disasters");
   $scope.reset = function() {
-    $scope.disaster = {};
+    $scope.disaster = {name: "", where: "", details: "", type: ""};
     $scope.disasterItems = [{}];
   };
   $scope.push = function () {
@@ -74,6 +74,12 @@ app.controller('RegisterCtrl', function($scope) {
   };
   $scope.pop = function () {
     $scope.disasterItems.pop();
+  };
+  $scope.canSave = function() {
+    console.log($scope.disaster);
+    return $scope.disaster.name.length > 0 && $scope.disaster.where.length > 0
+        && $scope.disaster.details.length > 0 && $scope.disaster.type.length > 0
+        && $scope.disasterItems.length > 0;
   };
   $scope.save = function() {
     var newDisasterRef = ref.push($scope.disaster);
