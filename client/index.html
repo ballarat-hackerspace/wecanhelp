@@ -2,6 +2,7 @@
 <head>
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <link rel="stylesheet" href="css/app.css">
   <meta name="viewport" content="initial-scale=1" />
@@ -23,19 +24,7 @@
       </md-list>
     </md-sidenav>
     <div layout="column" flex id="content">
-      <md-content layout="column" flex class="md-padding">
-        <md-list>
-          <md-subheader class="md-no-sticky">Current disasters</md-subheader>
-          <md-list-item class="md-3-line" ng-repeat="disaster in disasters">
-            <img ng-src="img/{{disaster.type}}.png" class="md-avatar" alt="{{disaster.title}}" />
-            <div class="md-list-item-text">
-              <h3>{{ disaster.name }}</h3>
-              <h4>{{ disaster.where }}</h4>
-              <p>{{ disaster.details }}</p>
-            </div>
-          </md-list-item>
-          <md-divider></md-divider>
-        </md-list>
+      <md-content ng-view layout="column" flex class="md-padding">
       </md-content>
     </div>
   </div>
