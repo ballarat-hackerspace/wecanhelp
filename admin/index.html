@@ -2,7 +2,7 @@
 <head>
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
-
+  <base href="/">
   <link rel="stylesheet" href="css/app.css">
   <meta name="viewport" content="initial-scale=1" />
 </head>
@@ -18,21 +18,19 @@
   <div layout="row" flex>
 
     <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
-      <md-list ng-controller="SideNavCtrl">
+      <md-list ng-controller="SideNavCtrl as sidebar">
         <md-subheader class="md-no-sticky">Actions</md-subheader>
-        <md-list-item ng-repeat="action in actions" ng-click="itemClick($event)">
-          <p> {{ action.name }} </p>
+        <md-list-item>
+          <md-button href="#/disaster">Register disaster</md-button>
         </md-list-item>
         <md-divider></md-divider>
         <md-subheader class="md-no-sticky">My Disasters</md-subheader>
-        <md-list-item ng-repeat="disaster in disasters" ng-click="itemClick($event)">
-          <p> {{ disaster.name }} ({{ disaster.type }}) </p>
-        </md-list-item>
+        <md-button ng-repeat="disaster in disasters" href="#/disaster/{{ disaster.id }}"> {{ disaster.name }} ({{ disaster.type }})</md-button>
         <md-divider></md-divider>
       </md-list>
     </md-sidenav>
     <div layout="column" flex id="content">
-      <md-content layout="column" flex class="md-padding">
+      <md-content ng-view layout="column" flex class="md-padding">
 
       </md-content>
     </div>
@@ -40,6 +38,7 @@
 
   <!-- Angular Material Dependencies -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular-route.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular-animate.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular-aria.min.js"></script>
 
