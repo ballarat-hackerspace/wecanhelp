@@ -55,8 +55,12 @@ app.controller('AppCtrl', ['$firebaseObject', '$scope', '$mdSidenav', function($
   };
 }]);
 
-app.controller('ConfirmCtrl', ['$firebaseObject', '$scope', '$routeParams', function($firebaseObject, $scope, $routeParams) {
+app.controller('ConfirmCtrl', ['$firebaseObject', '$location', '$scope', '$routeParams', function($firebaseObject, $location, $scope, $routeParams) {
   $scope.uuid = $routeParams.uuid;
+
+  $scope.go = function (path) {
+    $location.path(path);
+  };
 }]);
 
 app.controller('LandingCtrl', ['$firebaseObject', '$location', '$scope', function($firebaseObject, $location, $scope){
@@ -80,7 +84,6 @@ app.controller('NeededCtrl', ['$firebaseObject', '$scope', '$routeParams', funct
     $scope.required = $scope.disasters[$scope.uuid].hasOwnProperty('resources');
   });
 }]);
-
 
 app.controller('RequestCtrl', ['$firebaseObject', '$location', '$scope', '$routeParams', '$mdDialog', function($firebaseObject, $location, $scope, $routeParams, $mdDialog) {
   $scope.uuid = $routeParams.uuid;
@@ -121,20 +124,40 @@ app.controller('RequestCtrl', ['$firebaseObject', '$location', '$scope', '$route
     });
   };
   $scope.showConfirm = function(ev) {
-    var confirm = $mdDialog.confirm()
-      .parent(angular.element(document.body))
-      .title('Please confirm ...')
-      .content('Are you sure you can provide the selected resources.')
-      .ariaLabel('Confirm')
-      .ok('Yes, I can!')
-      .cancel('Sorry, I can\'t')
-      .targetEvent(ev);
-
-    $mdDialog.show(confirm).then(function() {
-      $scope.go('/confirm/'+$scope.uuid);
-    });
+    var confirm = $mdDialog
+      .show({
+        controller: 'RequestDetailsCtrl',
+        templateUrl: 'request-details-dialog.tmpl.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+      })
+      .then(function() {
+        $scope.go('/confirm/'+$scope.uuid);
+      });
   };
 }]);
+
+app.controller('RequestDetailsCtrl', ['$scope', '$mdDialog', function ($scope, $mdDialog) {
+  $scope.data = {
+    name: "",
+    phone: "",
+  };
+
+  $scope.hide = function() {
+    $mdDialog.hide();
+  };
+  $scope.cancel = function() {
+    $mdDialog.cancel();
+  };
+  $scope.answer = function() {
+    $mdDialog.hide($scope.data);
+  };
+
+  $scope.canAnswer = function() {
+    return $scope.data.name.length > 0 && $scope.data.phone.length > 0;
+  };
+}]);
+
 
 app.controller('RequireCtrl', ['$firebaseObject', '$scope', '$routeParams', function($firebaseObject, $scope, $routeParams){
   $scope.uuid = $routeParams.uuid;
