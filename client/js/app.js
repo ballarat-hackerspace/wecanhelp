@@ -77,7 +77,7 @@ app.controller('NeededCtrl', ['$firebaseObject', '$scope', '$routeParams', funct
 
   $scope.disasters.$loaded(function() {
     $scope.map = { center: $scope.disasters[$scope.uuid].latlong, zoom: 12 };
-    console.log($scope.map);
+    $scope.required = $scope.disasters[$scope.uuid].hasOwnProperty('resources');
   });
 }]);
 

@@ -12,7 +12,7 @@ p {
   margin: inherit;
 }
 
-.angular-google-map-container { height: 400px; }
+.angular-google-map-container { height: 250px; }
 
 .qrcode {
   max-width: 160px;
