@@ -61,7 +61,10 @@ app.controller('AppCtrl', ['$firebaseObject', '$scope', '$mdSidenav', function($
 app.controller('ConfirmCtrl', ['$scope', function($scope){
 }]);
 
-app.controller('LandingCtrl', ['$scope', function($scope){
+app.controller('LandingCtrl', ['$scope', '$location', function($scope, $location){
+  $scope.go = function (path) {
+    $location.path(path);
+  };
 }]);
 
 app.controller('NeededCtrl', ['$scope', function($scope){

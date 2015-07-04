@@ -1,6 +1,6 @@
 <md-list>
   <md-subheader class="md-no-sticky">Current disasters</md-subheader>
-  <md-list-item class="md-3-line" ng-repeat="disaster in disasters">
+  <md-list-item class="md-3-line" ng-repeat="(key, disaster) in disasters" ng-click="go('/needed/' + key)">
     <img ng-src="img/{{disaster.type}}.png" class="md-avatar" alt="{{disaster.title}}" />
     <div class="md-list-item-text">
       <h3>{{ disaster.name }}</h3>
@@ -8,5 +8,4 @@
       <p>{{ disaster.details }}</p>
     </div>
   </md-list-item>
-  <md-divider></md-divider>
 </md-list>
