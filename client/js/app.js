@@ -32,7 +32,7 @@ var app = angular.module('WeCanHelpApp', ['firebase', 'ngMaterial', 'ngRoute', '
           controller: 'RequireCtrl',
           controllerAs: 'require'
         })
-        .when('/thanks/:reason', {
+        .when('/thanks/:uuid/:reason', {
           templateUrl: 'thanks.html',
           controller: 'ThanksCtrl',
           controllerAs: 'thanks'
@@ -40,7 +40,6 @@ var app = angular.module('WeCanHelpApp', ['firebase', 'ngMaterial', 'ngRoute', '
         .otherwise({redirectTo: '/'});
     }])
   .config(function(uiGmapGoogleMapApiProvider) {
-    console.log("loading maps");
     uiGmapGoogleMapApiProvider.configure({
       key: 'AIzaSyAPRDqAY5tLbmOGPZeULMzPX4H0HW6Q5wE',
       v: '3.17',
@@ -72,7 +71,7 @@ app.controller('LandingCtrl', ['$firebaseObject', '$location', '$scope', functio
   };
 }]);
 
-app.controller('NeededCtrl', ['$firebaseObject', '$scope', '$routeParams', function($firebaseObject, $scope, $routeParams){
+app.controller('NeededCtrl', ['$firebaseObject', '$location', '$scope', '$routeParams', function($firebaseObject, $location, $scope, $routeParams){
   $scope.uuid = $routeParams.uuid;
   $scope.map = {};
 
@@ -83,19 +82,18 @@ app.controller('NeededCtrl', ['$firebaseObject', '$scope', '$routeParams', funct
     $scope.map = { center: $scope.disasters[$scope.uuid].latlong, zoom: 12 };
     $scope.required = $scope.disasters[$scope.uuid].hasOwnProperty('resources');
   });
+
+  $scope.go = function(path) {
+    $location.path(path);
+  };
 }]);
 
 app.controller('RequestCtrl', ['$firebaseObject', '$location', '$scope', '$routeParams', '$mdDialog', function($firebaseObject, $location, $scope, $routeParams, $mdDialog) {
   $scope.uuid = $routeParams.uuid;
 
-  var ref = new Firebase("https://we-can-help.firebaseio.com/disasters");
-  $scope.disasters = $firebaseObject(ref);
-  $scope.disaster = {};
+  var ref = new Firebase("https://we-can-help.firebaseio.com/disasters/" + $scope.uuid);
+  $scope.disaster = $firebaseObject(ref);
   $scope.selected = {};
-
-  $scope.disasters.$loaded(function() {
-    $scope.disaster = $scope.disasters[$scope.uuid];
-  });
 
   $scope.canConfirm = function() {
      var keys = Object.keys($scope.selected).filter(function(key) {
@@ -123,6 +121,7 @@ app.controller('RequestCtrl', ['$firebaseObject', '$location', '$scope', '$route
       $scope.go('/thanks/woot');
     });
   };
+
   $scope.showConfirm = function(ev) {
     var confirm = $mdDialog
       .show({
@@ -131,10 +130,15 @@ app.controller('RequestCtrl', ['$firebaseObject', '$location', '$scope', '$route
         parent: angular.element(document.body),
         targetEvent: ev,
       })
-      .then(function() {
+      .then(function(data) {
+        ref.child('volunteers').push(data);
         $scope.go('/confirm/'+$scope.uuid);
       });
   };
+
+  $scope.showDetail = function(e, details) {
+    console.log(details);
+  }
 }]);
 
 app.controller('RequestDetailsCtrl', ['$scope', '$mdDialog', function ($scope, $mdDialog) {
@@ -165,4 +169,7 @@ app.controller('RequireCtrl', ['$firebaseObject', '$scope', '$routeParams', func
 
 app.controller('ThanksCtrl', ['$firebaseObject', '$scope', '$routeParams', function($firebaseObject, $scope, $routeParams){
   $scope.uuid = $routeParams.uuid;
+  $scope.reason = $routeParams.reason;
+  var ref = new Firebase("https://we-can-help.firebaseio.com/disasters/" + $scope.uuid);
+  $scope.disaster = $firebaseObject(ref);
 }]);

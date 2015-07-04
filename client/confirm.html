@@ -1,5 +1,14 @@
-<h1>We May Need You</h1>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nisi dui, placerat efficitur congue sit amet, facilisis ullamcorper lorem. Fusce rutrum quis neque et porttitor.</p>
-<p>In a bibendum lectus, et aliquam nibh. Vestibulum porttitor, odio vitae rhoncus laoreet, erat orci sodales orci, quis lacinia quam purus id diam. Duis sit amet libero dignissim, bibendum turpis sed, aliquet nunc.</p>
-
-<md-button ng-click="go('/thanks/butnothanks')" class="md-warn md-fab md-fab-bottom-left">Sorry</md-button>
+<h1 class="header-bar header-bar-confirm">We may need you?</h1>
+<md-content layout="column" flex class="md-padding">
+  <div layout="column">
+    <div>
+      <p>We have your details registered with our coordinator and expect planning to completed shortly.</p>
+      <p>We will keep you notified of the disaster and when you are required to report for duty.</p>
+    </div>
+    <div flex>
+    </div>
+    <div layout="row" layout-align="center center">
+      <md-button ng-click="go('/thanks/butnothanks')" class="md-raised md-warn">I'm no longer available</md-button>
+    </div>
+  </div>
+</md-content>

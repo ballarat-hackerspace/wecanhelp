@@ -1,3 +1,38 @@
+.header-bar {
+  margin: 0 0 16px 0;
+  padding: 24px 0;
+  text-align: center;
+  width: 100%;
+}
+
+.header-bar-landing {
+  background-color: #ff83c5;
+}
+
+.header-bar-confirm {
+  background-color: #ffad66;
+}
+
+.header-bar-needed {
+  background-color: #ef8eff;
+}
+
+.header-bar-request {
+  background-color: #fff481;
+}
+
+.header-bar-require {
+  background-color: #00ff00;
+}
+
+.header-bar-thanks {
+  background-color: #88fff1;
+}
+
+.subtitle {
+  margin: 0;
+}
+
 .text-center {
   text-align: center;
 }
@@ -16,4 +51,10 @@ p {
 
 .qrcode {
   max-width: 160px;
+}
+
+md-content {
+  background: url('/img/logo-background.png');
+  background-position: center center;
+  background-repeat: no-repeat;
 }
