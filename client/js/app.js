@@ -1,4 +1,4 @@
-var app = angular.module('WeCanHelpApp', ['ngMaterial', 'ngRoute', 'ngAnimate', 'uiGmapgoogle-maps'])
+var app = angular.module('WeCanHelpApp', ['firebase', 'ngMaterial', 'ngRoute', 'ngAnimate', 'uiGmapgoogle-maps'])
   .config(['$routeProvider', '$locationProvider',
     function($routeProvider, $locationProvider) {
       $routeProvider
@@ -49,7 +49,10 @@ var app = angular.module('WeCanHelpApp', ['ngMaterial', 'ngRoute', 'ngAnimate', 
   });
 
 
-app.controller('AppCtrl', ['$scope', '$mdSidenav', function($scope, $mdSidenav){
+app.controller('AppCtrl', ['$firebaseObject', '$scope', '$mdSidenav', function($firebaseObject, $scope, $mdSidenav){
+  var ref = new Firebase("https://we-can-help.firebaseio.com/disasters");
+  $scope.disasters = $firebaseObject(ref);
+
   $scope.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
   };
@@ -59,10 +62,6 @@ app.controller('ConfirmCtrl', ['$scope', function($scope){
 }]);
 
 app.controller('LandingCtrl', ['$scope', function($scope){
-  $scope.disasters = [
-    { name: 'Bushfire cleanup', type: 'bushfire', where: "Dereel, Victoria, Australia", details: "Volunteers needed", active: true },
-    { name: 'Earthquake relief', where: 'Wellington, New Zealand', type: 'earthquake', active: false, details: "Register for updates" }
-  ];
 }]);
 
 app.controller('NeededCtrl', ['$scope', function($scope){
