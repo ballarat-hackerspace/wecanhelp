@@ -82,25 +82,57 @@ app.controller('NeededCtrl', ['$firebaseObject', '$scope', '$routeParams', funct
 }]);
 
 
-app.controller('RequestCtrl', ['$firebaseObject', '$scope', '$routeParams', function($firebaseObject, $scope, $routeParams){
+app.controller('RequestCtrl', ['$firebaseObject', '$location', '$scope', '$routeParams', '$mdDialog', function($firebaseObject, $location, $scope, $routeParams, $mdDialog) {
   $scope.uuid = $routeParams.uuid;
-  $scope.data = {
-    title: "Dereel Bushfires",
-    description: "We are looking for volunteers who can provide or assist with the following resources:",
-    resources: [
-      {
-        name: "Blankets",
-        description: "Non-flammable, non-syntetic."
-      },
-      {
-        name: "Food",
-        description: "Fresh fruit and tinned cans."
-      },
-      {
-        name: "Labour",
-        description: "Clean up of debris."
-      }
-    ]
+
+  var ref = new Firebase("https://we-can-help.firebaseio.com/disasters");
+  $scope.disasters = $firebaseObject(ref);
+  $scope.disaster = {};
+  $scope.selected = {};
+
+  $scope.disasters.$loaded(function() {
+    $scope.disaster = $scope.disasters[$scope.uuid];
+  });
+
+  $scope.canConfirm = function() {
+     var keys = Object.keys($scope.selected).filter(function(key) {
+       return $scope.selected[key];
+     });
+
+     return keys.length > 0;
+  }
+
+  $scope.go = function (path) {
+    $location.path(path);
+  };
+
+  $scope.showCancel = function(ev) {
+    var confirm = $mdDialog.confirm()
+      .parent(angular.element(document.body))
+      .title('Please confirm ...')
+      .content('Are you sure you can\'t provide any assistance.')
+      .ariaLabel('Sorry')
+      .ok('Yes, I can!')
+      .cancel('Sorry, I can\'t')
+      .targetEvent(ev);
+
+    $mdDialog.show(confirm).then(function() {
+      $scope.go('/thanks/woot');
+    });
+  };
+  $scope.showConfirm = function(ev) {
+    var confirm = $mdDialog.confirm()
+      .parent(angular.element(document.body))
+      .title('Please confirm ...')
+      .content('Are you sure you can provide the selected resources.')
+      .ariaLabel('Confirm')
+      .ok('Yes, I can!')
+      .cancel('Sorry, I can\'t')
+      .targetEvent(ev);
+
+    $mdDialog.show(confirm).then(function() {
+      $scope.go('/confirm/'+$scope.uuid);
+    });
   };
 }]);
 
@@ -108,3 +140,6 @@ app.controller('RequireCtrl', ['$firebaseObject', '$scope', '$routeParams', func
   $scope.uuid = $routeParams.uuid;
 }]);
 
+app.controller('ThanksCtrl', ['$firebaseObject', '$scope', '$routeParams', function($firebaseObject, $scope, $routeParams){
+  $scope.uuid = $routeParams.uuid;
+}]);

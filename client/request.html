@@ -1,14 +1,14 @@
-<h1>{{data.title}}</h1>
-<p>{{data.description}}</p>
+<h1>{{disaster.name}}</h1>
+<p>{{disaster.details}}</p>
 
 <md-list>
-  <md-list-item ng-repeat="resource in data.resources">
-    <md-checkbox ng-model="resource.selected" aria-label="{{resource.name}}"></md-checkbox>
-    <p>{{resource.name}}</p>
+  <md-list-item ng-repeat="(key, resource) in disaster.resources">
+    <md-checkbox ng-model="selected[key]" aria-label="{{resource.required}}"></md-checkbox>
+    <p>{{resource.required}}</p>
     <md-icon class="md-secondary" ng-click="doSecondaryAction($event)" aria-label="Chat" md-font-icon="android"></md-icon>
     <md-icon md-font-icon="android" aria-label="android"></md-icon>
   </md-list-item>
 </md-list>
 
-<md-button class="md-warn md-fab md-fab-bottom-left">Sorry</md-button>
-<md-button class="md-primary md-fab md-fab-bottom-right">Yes</md-button>
+<md-button ng-click="go('/thanks/woot')" class="md-warn md-fab md-fab-bottom-left">Sorry</md-button>
+<md-button ng-click="showConfirm()" class="md-primary md-fab md-fab-bottom-right" ng-disabled="!canConfirm()">Yes</md-button>
