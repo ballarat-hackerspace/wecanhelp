@@ -59,7 +59,7 @@ app.controller('ConfirmCtrl', ['$firebaseObject', '$scope', '$routeParams', func
   $scope.uuid = $routeParams.uuid;
 }]);
 
-app.controller('LandingCtrl', ['$firebaseObject', '$scope', function($firebaseObject, $scope){
+app.controller('LandingCtrl', ['$firebaseObject', '$location', '$scope', function($firebaseObject, $location, $scope){
   var ref = new Firebase("https://we-can-help.firebaseio.com/disasters");
   $scope.disasters = $firebaseObject(ref);
 
