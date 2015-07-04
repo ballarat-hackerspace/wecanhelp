@@ -1,26 +1,28 @@
 <div>
-  <h2>{{ disaster.name }} <span class="md-body-2">{{ disaster.type }}</span></h2>
-  <h3>{{ disaster.where }}</h3>
-  <h4>{{ disaster.details }}</h4>
+    <h2>{{ disaster.name }} <span class="md-body-2">{{ disaster.type }}</span></h2>
+    <h3>{{ disaster.where }}</h3>
+    <h4>{{ disaster.details }}</h4>
+    <h4>Volunteers Responded: {{ sizeOf(disaster.volunteers) }}</h4>
 
-  <div layout layout-sm="column">
-    <md-list flex>
-      <md-divider></md-divider>
-      <div ng-show="!hasResources()">
-        <md-list-item layout layout-sm="column">
-          <p>No resources where found</p>
-        </md-list-item>
-        <md-divider></md-divider>
-      </div>
-      <div ng-repeat="resource in disaster.resources">
-        <md-list-item layout layout-sm="column">
-          <p flex="5">{{ $index+1 }}</p>
-          <p>{{ resource.required }}</p>
-          <p>{{ resource.details }}</p>
-          <p> todo: volunteers?</p>
-        </md-list-item>
-        <md-divider></md-divider>
-      </div>
-    </md-list>
-  </div>
+    <div layout layout-sm="column">
+        <md-list flex>
+            <md-divider></md-divider>
+            <div ng-show="!nonEmpty(disaster.resources)">
+                <md-list-item layout layout-sm="column">
+                    <p>No resources where found</p>
+                </md-list-item>
+                <md-divider></md-divider>
+            </div>
+            <div ng-repeat="resource in disaster.resources">
+                <md-list-item layout layout-sm="column">
+                    <p flex="5">{{ $index+1 }}</p>
+
+                    <p>{{ resource.required }}</p>
+
+                    <p>{{ resource.details }}</p>
+                </md-list-item>
+                <md-divider></md-divider>
+            </div>
+        </md-list>
+    </div>
 </div>

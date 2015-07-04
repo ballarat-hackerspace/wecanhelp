@@ -1,58 +1,61 @@
 <html lang="en" ng-app="WeCanHelpApp">
 <head>
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+    <link rel="stylesheet"
+          href="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
 
-  <link rel="stylesheet" href="css/app.css">
-  <meta name="viewport" content="initial-scale=1" />
+    <link rel="stylesheet" href="css/app.css">
+    <meta name="viewport" content="initial-scale=1"/>
 </head>
 <body layout="column" ng-controller="AppCtrl">
-  <md-toolbar layout="row">
+<md-toolbar layout="row">
     <div class="md-toolbar-tools">
-      <md-button ng-click="toggleSidenav('left')" hide-gt-sm class="md-icon-button">
-      <md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
-      </md-button>
-      <h1><a href="#/">We Can Help</a></h1>
+        <md-button ng-click="toggleSidenav('left')" hide-gt-sm class="md-icon-button">
+            <md-icon aria-label="Menu"
+                     md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
+        </md-button>
+        <h1><a href="#/">We Can Help</a></h1>
     </div>
-  </md-toolbar>
-  <div layout="row" flex>
+</md-toolbar>
+<div layout="row" flex>
 
-    <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
-      <md-list>
-        <md-subheader class="md-no-sticky">Actions</md-subheader>
-        <md-list-item ng-click="go('/disaster')">
-            <div class="md-list-item-text">
-              Register New Disaster
-            </div>
-        </md-list-item>
-        <md-divider></md-divider>
-        <md-subheader class="md-no-sticky">Current disasters</md-subheader>
-        <md-list-item class="md-2-line" ng-repeat="(key, disaster) in disasters" ng-click="go('/disaster/'+key)">
-          <div class="md-list-item-text">
-            <h3>{{ disaster.name }}</h3>
-            <h4>{{ disaster.where }}</h4>
-          </div>
-        </md-list-item>
-        <md-divider></md-divider>
-      </md-list>
+    <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
+                md-is-locked-open="$mdMedia('gt-sm')">
+        <md-list>
+            <md-subheader class="md-no-sticky">Actions</md-subheader>
+            <md-list-item ng-click="go('/disaster')">
+                <div class="md-list-item-text">
+                    Register New Disaster
+                </div>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-subheader class="md-no-sticky">Current disasters</md-subheader>
+            <md-list-item class="md-2-line" ng-repeat="(key, disaster) in disasters" ng-click="go('/disaster/'+key)">
+                <div class="md-list-item-text">
+                    <h3>{{ disaster.name }}</h3>
+                    <h4>{{ disaster.where }}</h4>
+                </div>
+            </md-list-item>
+            <md-divider></md-divider>
+        </md-list>
     </md-sidenav>
     <div layout="column" flex id="content">
-      <md-content ng-view layout="column" flex class="md-padding">
-      </md-content>
+        <md-content ng-view layout="column" flex class="md-padding">
+        </md-content>
     </div>
-  </div>
+</div>
 
-  <!-- Angular Material Dependencies -->
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular-route.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular-animate.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular-aria.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.js"></script>
-  <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
-  <script src="https://cdn.firebase.com/libs/angularfire/1.1.2/angularfire.min.js"></script>
+<!-- Angular Material Dependencies -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular-route.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.js"></script>
+<script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+<script src="https://cdn.firebase.com/libs/angularfire/1.1.2/angularfire.min.js"></script>
 
-  <script src='js/lodash.min.js'></script>
-  <script src='js/angular-google-maps.min.js'></script>
-  <script src="js/app.js"></script>
+<script src='js/lodash.min.js'></script>
+<script src='js/angular-google-maps.min.js'></script>
+<script src="js/app.js"></script>
 </body>
 </html>

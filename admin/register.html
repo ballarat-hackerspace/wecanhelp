@@ -1,50 +1,50 @@
 <div ng-controller="RegisterCtrl">
-  <md-content layout layout-sm="column">
-    <h2>Register New Disaster</h2>
-    <span flex></span>
-    <md-button ng-click="save()" ng-disabled="!canSave()" class="md-raised md-primary">save</md-button>
-  </md-content>
-  <md-content layout-padding>
-    <div layout layout-sm="column">
-      <md-input-container flex>
-        <label>Disaster Name</label>
-        <input ng-model="disaster.name">
-      </md-input-container>
-      <md-input-container flex>
-        <label>Disaster Location</label>
-        <input ng-model="disaster.where">
-      </md-input-container>
-    </div>
-    <div layout layout-sm="column">
-      <md-input-container flex>
-        <label>Disaster Details</label>
-        <input ng-model="disaster.details">
-      </md-input-container>
-      <md-select placeholder="Disaster Type" ng-model="disaster.type" required flex="15">
-        <md-option value="bushfire">Bushfire</md-option>
-        <md-option value="drought">Drought</md-option>
-        <md-option value="earthquake">Earthquake</md-option>
-        <md-option value="flood">Flood</md-option>
-      </md-select>
-    </div>
-    <div layout layout-sm="column">
-      <md-list flex>
-        <md-list-item layout layout-sm="column" ng-repeat="item in disasterItems">
-          <md-input-container flex>
-            <label>What is required?</label>
-            <input ng-model="item.required">
-          </md-input-container>
-          <md-input-container flex>
-            <label>Details</label>
-            <input ng-model="item.details">
-          </md-input-container>
-        </md-list-item>
-      </md-list>
-      <div flex="10">
-        <md-button ng-click="push()" class="md-raised md-primary">add</md-button>
-        <md-button ng-click="pop()" class="md-raised">remove</md-button>
-      </div>
-    </div>
-    <!--<pre>{{ disaster }}</pre>-->
-  </md-content>
+    <md-content layout layout-sm="column">
+        <h2>Register New Disaster</h2>
+        <span flex></span>
+        <md-button ng-click="save()" ng-disabled="!canSave()" class="md-raised md-primary">save</md-button>
+    </md-content>
+    <md-content layout-padding>
+        <div layout layout-sm="column">
+            <md-input-container flex>
+                <label>Disaster Name</label>
+                <input ng-model="disaster.name">
+            </md-input-container>
+            <md-input-container flex>
+                <label>Disaster Location</label>
+                <input ng-model="disaster.where">
+            </md-input-container>
+        </div>
+        <div layout layout-sm="column">
+            <md-input-container flex>
+                <label>Disaster Details</label>
+                <input ng-model="disaster.details">
+            </md-input-container>
+            <md-select placeholder="Disaster Type" ng-model="disaster.type" required flex="15">
+                <md-option value="bushfire">Bushfire</md-option>
+                <md-option value="drought">Drought</md-option>
+                <md-option value="earthquake">Earthquake</md-option>
+                <md-option value="flood">Flood</md-option>
+            </md-select>
+        </div>
+        <div layout layout-sm="column">
+            <md-list flex>
+                <md-list-item layout layout-sm="column" ng-repeat="item in disasterItems">
+                    <md-input-container flex>
+                        <label>What is required?</label>
+                        <input ng-model="item.required">
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label>Details</label>
+                        <input ng-model="item.details">
+                    </md-input-container>
+                </md-list-item>
+            </md-list>
+            <div flex="10">
+                <md-button ng-click="push()" class="md-raised md-primary">add</md-button>
+                <md-button ng-click="pop()" class="md-raised">remove</md-button>
+            </div>
+        </div>
+        <!--<pre>{{ disaster }}</pre>-->
+    </md-content>
 </div>
