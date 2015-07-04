@@ -1,4 +1,4 @@
-var app = angular.module('WeCanHelpApp', ['ngMaterial', 'ngRoute', 'ngAnimate'])
+var app = angular.module('WeCanHelpApp', ['ngMaterial', 'ngRoute', 'ngAnimate', 'uiGmapgoogle-maps'])
   .config(['$routeProvider', '$locationProvider',
     function($routeProvider, $locationProvider) {
       $routeProvider
@@ -12,7 +12,15 @@ var app = angular.module('WeCanHelpApp', ['ngMaterial', 'ngRoute', 'ngAnimate'])
         controller: 'ThanksCtrl',
         controllerAs: 'thanks'
       });
-    }]);
+    }])
+  .config(function(uiGmapGoogleMapApiProvider) {
+    console.log("loading maps");
+    uiGmapGoogleMapApiProvider.configure({
+      key: 'AIzaSyAPRDqAY5tLbmOGPZeULMzPX4H0HW6Q5wE',
+      v: '3.17',
+      libraries: 'weather,geometry,visualization'
+    });
+  });
 
 
 app.controller('AppCtrl', ['$scope', '$mdSidenav', function($scope, $mdSidenav){
@@ -43,4 +51,6 @@ app.controller('AppCtrl', ['$scope', '$mdSidenav', function($scope, $mdSidenav){
     { name: 'Bushfire cleanup', type: 'bushfire', where: "Dereel, Victoria, Australia", details: "Volunteers needed", active: true },
     { name: 'Earthquake relief', where: 'Wellington, New Zealand', type: 'earthquake', active: false, details: "Register for updates" }
   ];
+
+  $scope.map = { center: { latitude: -37.816215, longitude: 143.755160 }, zoom: 12 };
 }]);
