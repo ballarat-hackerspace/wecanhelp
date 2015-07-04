@@ -25,7 +25,7 @@
         </md-list-item>
         <md-divider></md-divider>
         <md-subheader class="md-no-sticky">My Disasters</md-subheader>
-        <md-button ng-repeat="disaster in disasters" href="#/disaster/{{ disaster.id }}"> {{ disaster.name }}<br/>({{ disaster.where }})</md-button>
+        <md-button ng-repeat="(key, disaster) in disasters" href="#/disaster/{{ key }}"> {{ disaster.name }}<br/>({{ disaster.where }})</md-button>
         <md-divider></md-divider>
       </md-list>
     </md-sidenav>
