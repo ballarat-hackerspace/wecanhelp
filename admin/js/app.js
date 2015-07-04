@@ -8,8 +8,8 @@ app.config(['$routeProvider', function($routeProvider) {
       })
       .when('/disaster/:disasterId', {
         templateUrl: 'disaster.html',
-        controller: 'MainCtrl',
-        controllerAs: 'disaster'
+        controller: 'DisasterCtrl',
+        controllerAs: 'main'
       })
       .otherwise({ templateUrl: 'map.html'});
 }]);
@@ -23,20 +23,41 @@ app.config(function(uiGmapGoogleMapApiProvider) {
   })
 });
 
-app.controller('AppCtrl', ['$firebaseObject', '$scope', '$mdSidenav', function($firebaseObject, $scope, $mdSidenav){
+app.controller('AppCtrl', ['$location', '$firebaseObject', '$scope', '$mdSidenav', function($location, $firebaseObject, $scope, $mdSidenav){
   var ref = new Firebase("https://we-can-help.firebaseio.com/disasters");
   $scope.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
   };
   $scope.disasters = $firebaseObject(ref);
   $scope.map = { center: { latitude: -37.816215, longitude: 143.755160 }, zoom: 12 };
+  $scope.go = function(path) {
+    $location.path(path);
+  }
+  $scope.hasResources = function () {
+    var keys = Object.keys($scope.disaster.resources)
+    if(!keys) return false;
+    else return keys.length;
+  }
 }]);
 
-app.controller('MainCtrl', ['$route', '$routeParams', '$location',
-  function($route, $routeParams, $location) {
+app.controller('MainCtrl', ['$scope', '$firebaseObject', '$route', '$routeParams', '$location',
+  function($scope, $firebaseObject, $route, $routeParams, $location) {
     this.$route = $route;
     this.$location = $location;
-    this.params = $routeParams;
+}]);
+
+app.controller('DisasterCtrl', ['$scope', '$firebaseObject', '$route', '$routeParams', '$location',
+  function($scope, $firebaseObject, $route, $routeParams, $location) {
+    this.$route = $route;
+    this.$location = $location;
+    console.log("firebase request...");
+    var disasterRef = new Firebase("https://we-can-help.firebaseio.com/disasters/" + $routeParams.disasterId);
+    $scope.disaster = $firebaseObject(disasterRef);
+    $scope.hasResources = function () {
+      var keys = Object.keys($scope.disaster.resources)
+      if(!keys) return false;
+      else return keys.length;
+    }
 }]);
 
 app.controller('RegisterCtrl', function($scope) {
