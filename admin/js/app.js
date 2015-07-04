@@ -1,4 +1,4 @@
-var app = angular.module('WeCanHelpApp', ['ngMaterial', 'ngRoute'])
+var app = angular.module('WeCanHelpApp', ['ngMaterial', 'ngRoute', 'uiGmapgoogle-maps'])
 
 app.config(['$routeProvider', function($routeProvider) {
     $routeProvider
@@ -11,13 +11,23 @@ app.config(['$routeProvider', function($routeProvider) {
         controller: 'MainCtrl',
         controllerAs: 'disaster'
       })
-      .otherwise({redirectTo: '/'});
+      .otherwise({ templateUrl: 'map.html'});
 }]);
+
+app.config(function(uiGmapGoogleMapApiProvider) {
+  console.log("loading maps");
+  uiGmapGoogleMapApiProvider.configure({
+    key: 'AIzaSyAPRDqAY5tLbmOGPZeULMzPX4H0HW6Q5wE',
+    v: '3.17',
+    libraries: 'weather,geometry,visualization'
+  })
+});
 
 app.controller('AppCtrl', ['$scope', '$mdSidenav', function($scope, $mdSidenav){
   $scope.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
   };
+  $scope.map = { center: { latitude: -37.816215, longitude: 143.755160 }, zoom: 12 };
 }]);
 
 app.controller('MainCtrl', ['$route', '$routeParams', '$location',
