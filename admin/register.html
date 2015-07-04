@@ -2,7 +2,7 @@
   <md-content layout layout-sm="column">
     <h2>Register New Disaster</h2>
     <span flex></span>
-    <md-button class="md-raised md-primary">save</md-button>
+    <md-button ng-click="save()" class="md-raised md-primary">save</md-button>
   </md-content>
   <md-content layout-padding>
     <div layout layout-sm="column">
@@ -29,7 +29,7 @@
     </div>
     <div layout layout-sm="column">
       <md-list flex>
-        <md-list-item layout layout-sm="column" ng-repeat="item in disaster.items">
+        <md-list-item layout layout-sm="column" ng-repeat="item in disasterItems">
           <md-input-container flex>
             <label>What is required?</label>
             <input ng-model="item.required">

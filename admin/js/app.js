@@ -1,4 +1,4 @@
-var app = angular.module('WeCanHelpApp', ['ngMaterial', 'ngRoute', 'uiGmapgoogle-maps'])
+var app = angular.module('WeCanHelpApp', ['firebase', 'ngMaterial', 'ngRoute', 'uiGmapgoogle-maps'])
 
 app.config(['$routeProvider', function($routeProvider) {
     $routeProvider
@@ -23,10 +23,12 @@ app.config(function(uiGmapGoogleMapApiProvider) {
   })
 });
 
-app.controller('AppCtrl', ['$scope', '$mdSidenav', function($scope, $mdSidenav){
+app.controller('AppCtrl', ['$firebaseObject', '$scope', '$mdSidenav', function($firebaseObject, $scope, $mdSidenav){
+  var ref = new Firebase("https://we-can-help.firebaseio.com/disasters");
   $scope.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
   };
+  $scope.disasters = $firebaseObject(ref);
   $scope.map = { center: { latitude: -37.816215, longitude: 143.755160 }, zoom: 12 };
 }]);
 
@@ -37,22 +39,27 @@ app.controller('MainCtrl', ['$route', '$routeParams', '$location',
     this.params = $routeParams;
 }]);
 
-app.controller('SideNavCtrl', function($scope) {
-  $scope.disasters = [
-    { id: 'bf001', name: 'Dereel', type: 'bushfire', active: true },
-    { id: 'eq001', name: 'Wellington', type: 'earthquake', active: false }
-  ];
-});
-
 app.controller('RegisterCtrl', function($scope) {
-  $scope.disaster = {'items':[{}]};
+  var ref = new Firebase("https://we-can-help.firebaseio.com/disasters");
+  $scope.reset = function() {
+    $scope.disaster = {};
+    $scope.disasterItems = [{}];
+  };
   $scope.push = function () {
-    $scope.disaster.items.push({
+    $scope.disasterItems.push({
       required: "",
       details: ""
     });
   };
   $scope.pop = function () {
-    $scope.disaster.items.pop();
+    $scope.disasterItems.pop();
   };
+  $scope.save = function() {
+    var newDisasterRef = ref.push($scope.disaster);
+    angular.forEach($scope.disasterItems, function(value) {
+      delete value['$$hashKey'];
+      newDisasterRef.child('resources').push(value);
+    });
+  };
+  $scope.reset();
 });
