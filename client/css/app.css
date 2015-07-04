@@ -1,3 +1,11 @@
+.text-center {
+  text-align: center;
+}
+
+p {
+  text-align: justify;
+}
+
 .md-toolbar-tools h1 {
   font-size: inherit;
   font-weight: inherit;
@@ -5,3 +13,7 @@
 }
 
 .angular-google-map-container { height: 400px; }
+
+.qrcode {
+  max-width: 160px;
+}
