@@ -1,19 +1,32 @@
-var app = angular.module('WeCanHelpApp', ['ngMaterial'])
+var app = angular.module('WeCanHelpApp', ['ngMaterial', 'ngRoute'])
+
+app.config(['$routeProvider', '$locationProvider',
+  function($routeProvider, $locationProvider) {
+    $routeProvider
+      .when('/register', {
+        templateUrl: 'register.html',
+        controller: 'MainCtrl'
+      })
+      .otherwise({redirectTo: '/'});
+}]);
 
 app.controller('AppCtrl', ['$scope', '$mdSidenav', function($scope, $mdSidenav){
   $scope.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
   };
+}]);
 
+app.controller('MainCtrl', ['$route', '$routeParams', '$location',
+  function($route, $routeParams, $location) {
+    this.$route = $route;
+    this.$location = $location;
+    this.$routeParams = $routeParams;
 }]);
 
 app.controller('SideNavCtrl', function($scope, $mdDialog) {
   $scope.disasters = [
     { name: 'Dereel', type: 'bushfire', active: true },
     { name: 'Wellington', type: 'earthquake', active: false }
-  ];
-  $scope.actions = [
-    { name: 'Register new disaster' }
   ];
   $scope.itemClick = function(event) {
     $mdDialog.show(
