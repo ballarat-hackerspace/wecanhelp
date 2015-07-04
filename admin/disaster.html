@@ -1,38 +1,26 @@
 <div>
-  <h2>Managing {{ disaster.params.disasterId }}</h2>
+  <h2>{{ disaster.name }}</h2>
+  <h3>{{ disaster.where }}</h3>
+  <h4>{{ disaster.details }}</h4>
 
   <div layout layout-sm="column">
     <md-list flex>
-      <md-list-item layout layout-sm="column">
-        <md-input-container flex>
-          <p>Food</p>
-        </md-input-container>
-        <md-input-container flex>
-          <p>A supply of nonperishable food</p>
-        </md-input-container>
-      <div flex="20">
-        Yes xxx
-      </div>
-      <div flex="20">
-        No xxx
-      </div>
-      </md-list-item>
       <md-divider></md-divider>
-      <md-list-item layout layout-sm="column">
-        <md-input-container flex>
-          <p>Accommodation</p>
-        </md-input-container>
-        <md-input-container flex>
-          <p>We are in need of housing</p>
-        </md-input-container>
-        <div flex="20">
-          Yes xxx
-        </div>
-        <div flex="20">
-          No xxx
-        </div>
-      </md-list-item>
-      <md-divider></md-divider>
+      <div ng-show="!hasResources()">
+        <md-list-item layout layout-sm="column">
+          <p>No resources where found</p>
+        </md-list-item>
+        <md-divider></md-divider>
+      </div>
+      <div ng-repeat="resource in disaster.resources">
+        <md-list-item layout layout-sm="column">
+          <p flex="5">{{ $index+1 }}</p>
+          <p>{{ resource.required }}</p>
+          <p>{{ resource.details }}</p>
+          <p> todo: volunteers?</p>
+        </md-list-item>
+        <md-divider></md-divider>
+      </div>
     </md-list>
   </div>
 </div>

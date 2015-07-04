@@ -20,12 +20,19 @@
     <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
       <md-list>
         <md-subheader class="md-no-sticky">Actions</md-subheader>
-        <md-list-item>
-          <md-button href="#/disaster">Register New Disaster</md-button>
+        <md-list-item ng-click="go('/disaster')">
+            <div class="md-list-item-text">
+              Register New Disaster
+            </div>
         </md-list-item>
         <md-divider></md-divider>
-        <md-subheader class="md-no-sticky">My Disasters</md-subheader>
-        <md-button ng-repeat="(key, disaster) in disasters" href="#/disaster/{{ key }}"> {{ disaster.name }}<br/>({{ disaster.where }})</md-button>
+        <md-subheader class="md-no-sticky">Current disasters</md-subheader>
+        <md-list-item class="md-2-line" ng-repeat="(key, disaster) in disasters" ng-click="go('/disaster/'+key)">
+          <div class="md-list-item-text">
+            <h3>{{ disaster.name }}</h3>
+            <h4>{{ disaster.where }}</h4>
+          </div>
+        </md-list-item>
         <md-divider></md-divider>
       </md-list>
     </md-sidenav>
