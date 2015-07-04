@@ -12,12 +12,24 @@
       <md-button ng-click="toggleSidenav('left')" hide-gt-sm class="md-icon-button">
       <md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
       </md-button>
-      <h1>Hello World</h1>
+      <h1>WCH Management Console</h1>
     </div>
   </md-toolbar>
   <div layout="row" flex>
-    <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
 
+    <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+      <md-list ng-controller="SideNavCtrl">
+        <md-subheader class="md-no-sticky">Actions</md-subheader>
+        <md-list-item ng-repeat="action in actions" ng-click="itemClick($event)">
+          <p> {{ action.name }} </p>
+        </md-list-item>
+        <md-divider></md-divider>
+        <md-subheader class="md-no-sticky">My Disasters</md-subheader>
+        <md-list-item ng-repeat="disaster in disasters" ng-click="itemClick($event)">
+          <p> {{ disaster.name }} ({{ disaster.type }}) </p>
+        </md-list-item>
+        <md-divider></md-divider>
+      </md-list>
     </md-sidenav>
     <div layout="column" flex id="content">
       <md-content layout="column" flex class="md-padding">
