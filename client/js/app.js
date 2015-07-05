@@ -56,10 +56,35 @@ app.controller('AppCtrl', ['$firebaseObject', '$scope', '$mdSidenav', function($
 
 app.controller('ConfirmCtrl', ['$firebaseObject', '$location', '$scope', '$routeParams', function($firebaseObject, $location, $scope, $routeParams) {
   $scope.uuid = $routeParams.uuid;
+  var ref = new Firebase("https://we-can-help.firebaseio.com/disasters/" + $scope.uuid);
+  $scope.disaster = $firebaseObject(ref);
 
   $scope.go = function (path) {
     $location.path(path);
   };
+
+  $scope.disaster.$watch(function() {
+    if ('volunteers' in $scope.disaster) {
+      var message = '';
+      var responseStatus = 0;
+      angular.forEach($scope.disaster.volunteers, function(v,k) {
+        if ('responseStatus' in v) {
+          responseStatus = v.responseStatus;
+          message = v.message;
+        }
+      });
+
+      if (responseStatus == 1) {
+        $scope.go('/require/'+$scope.uuid);
+      }
+      else if (responseStatus == 2) {
+        $scope.go('/thanks/'+$scope.uuid+'/assistance');
+      }
+      else if (responseStatus == 3) {
+        $scope.go('/thanks/'+$scope.uuid+'/assistance');
+      }
+    }
+  });
 }]);
 
 app.controller('LandingCtrl', ['$firebaseObject', '$location', '$scope', function($firebaseObject, $location, $scope){
@@ -104,6 +129,7 @@ app.controller('RequestCtrl', ['$firebaseObject', '$location', '$scope', '$route
   }
 
   $scope.go = function (path) {
+    console.log(path);
     $location.path(path);
   };
 
@@ -118,7 +144,7 @@ app.controller('RequestCtrl', ['$firebaseObject', '$location', '$scope', '$route
       .targetEvent(ev);
 
     $mdDialog.show(confirm).then(function() {
-      $scope.go('/thanks/woot');
+      $scope.go('/thanks/'+uuid+'/unable');
     });
   };
 
@@ -163,8 +189,32 @@ app.controller('RequestDetailsCtrl', ['$scope', '$mdDialog', function ($scope, $
 }]);
 
 
-app.controller('RequireCtrl', ['$firebaseObject', '$scope', '$routeParams', function($firebaseObject, $scope, $routeParams){
+app.controller('RequireCtrl', ['$firebaseObject', '$location', '$scope', '$routeParams', function($firebaseObject, $location, $scope, $routeParams){
   $scope.uuid = $routeParams.uuid;
+
+  var ref = new Firebase("https://we-can-help.firebaseio.com/disasters/" + $scope.uuid);
+  $scope.disaster = $firebaseObject(ref);
+
+  $scope.go = function (path) {
+    $location.path(path);
+  };
+
+  $scope.disaster.$watch(function() {
+    if ('volunteers' in $scope.disaster) {
+      var message = '';
+      var responseStatus = 0;
+      angular.forEach($scope.disaster.volunteers, function(v,k) {
+        if ('responseStatus' in v) {
+          responseStatus = v.responseStatus;
+          message = v.message;
+        }
+      });
+
+      if (responseStatus == 3) {
+        $scope.go('/thanks/'+$scope.uuid+'/assistance');
+      }
+    }
+  });
 }]);
 
 app.controller('ThanksCtrl', ['$firebaseObject', '$scope', '$routeParams', function($firebaseObject, $scope, $routeParams){

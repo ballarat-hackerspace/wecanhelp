@@ -1,4 +1,4 @@
-<h1 class="header-bar header-bar-request">What we need?</h1>
+<h1 class="header-bar header-bar-request">What's Needed?</h1>
 <md-content layout="column" flex class="md-padding">
   <h2 class="subtitle">{{disaster.name}}</h2>
   <p>Please review the following resources, which have been identified as essential items to assist in the recovery effort, that you are able to provide assistance with.</p>
@@ -11,6 +11,6 @@
     </md-list-item>
   </md-list>
 
-  <md-button ng-click="go('/thanks/woot')" class="md-warn md-fab md-fab-bottom-left">Sorry</md-button>
+  <md-button ng-click="go('/thanks/'+uuid+'/unable')" class="md-warn md-fab md-fab-bottom-left">Sorry</md-button>
   <md-button ng-click="showConfirm()" class="md-primary md-fab md-fab-bottom-right" ng-disabled="!canConfirm()">Yes</md-button>
 </md-content>

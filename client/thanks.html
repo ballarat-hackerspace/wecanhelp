@@ -1,4 +1,17 @@
 <h1 class="header-bar header-bar-thanks">Thank You</h1>
 <md-content layout="column" flex class="md-padding">
-<p>We sincerely appreciate your offer and assistance with the volunteer clean up effort for the {{disaster.name}}.</p>
+<div ng-if="reason == 'nolonger'">
+  <p>We sincerely appreciate your offer of assistance with the volunteer effort for the {{disaster.name}}. We understand that you are no longer able to provide assistance at this time.</p>
+  <p>If your circumstance changes and are able to assist in the future it will be greatly appreciated.</p>
+</div>
+<div ng-if="reason == 'unable'">
+  <p>We sincerely appreciate your consideration of assistance for the {{disaster.name}}.</p>
+  <p>We understand that you are no longer able to provide assistance at this time.</p>
+  <p>If your circumstance changes and are able to assist in the future it will be greatly appreciated.</p>
+</div>
+<div ng-if="reason == 'assistance'">
+  <p>We sincerely appreciate your assistance during the volunteer effort for the {{disaster.name}}.</p>
+  <p>Your help was a welcomed contribution to those who have been affected by this disaster.</p>
+</div>
+<p class="text-center">Thank you!</p>
 </md-content>
