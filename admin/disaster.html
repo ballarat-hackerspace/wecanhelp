@@ -9,29 +9,20 @@
     <md-content layout-padding>
         <div layout layout-sm="column">
             <md-input-container flex>
-                <label>Volunteers Responded</label>
-                <input ng-model="volunteers" disabled>
-            </md-input-container>
-        </div>
-        <div layout layout-sm="column">
-            <md-input-container flex>
                 <label>Disaster Name</label>
                 <input ng-model="disaster.name" disabled>
-            </md-input-container>
-            <md-input-container flex>
-                <label>Disaster Location</label>
-                <input ng-model="disaster.where" disabled>
-            </md-input-container>
-        </div>
-        <div layout layout-sm="column">
-            <md-input-container flex>
-                <label>Disaster Details</label>
-                <input ng-model="disaster.details" disabled>
             </md-input-container>
             <md-input-container flex>
                 <label>Disaster Type</label>
                 <input ng-model="disaster.type" disabled>
             </md-input-container>
+            <md-input-container flex>
+                <label>Volunteers Responded</label>
+                <input ng-model="volunteers" disabled>
+            </md-input-container>
+        </div>
+        <div layout layout-sm="column" class="disaster-text">
+            {{disaster.details}}
         </div>
         <div layout layout-sm="column">
             <md-list flex>
@@ -45,7 +36,9 @@
                 <div ng-repeat="resource in disaster.resources">
                     <md-list-item layout layout-sm="column">
                         <p flex="5">{{ $index+1 }}</p>
+
                         <p>{{ resource.required }}</p>
+
                         <p>{{ resource.details }}</p>
                     </md-list-item>
                     <md-divider></md-divider>
