@@ -29,7 +29,7 @@ app.controller('AppCtrl', ['$location', '$firebaseObject', '$scope', '$mdSidenav
         $mdSidenav(menuId).toggle();
     };
     $scope.disasters = $firebaseObject(ref);
-    $scope.map = {center: {latitude: -32.816215, longitude: 143.755160}, zoom: 4};
+    $scope.map = {center: {latitude: -30.816215, longitude: 143.755160}, zoom: 4};
     $scope.go = function (path) {
         $location.path(path);
     };
