@@ -7,7 +7,7 @@
     <md-list-item ng-repeat="(key, resource) in disaster.resources">
       <md-checkbox ng-model="selected[key]" aria-label="{{resource.required}}"></md-checkbox>
       <p>{{resource.required}}</p>
-      <md-icon class="md-secondary" ng-click="showDetail($event, resource.details)" aria-label="Chat" md-font-icon="fa-question" class="fa"></md-icon>
+      <md-icon class="fa md-secondary" ng-click="showDetail($event, resource.details)" aria-label="Chat" md-font-icon="fa-question"></md-icon>
     </md-list-item>
   </md-list>
 
