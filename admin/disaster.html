@@ -1,8 +1,11 @@
 <div>
     <h2>{{ disaster.name }} <span class="md-body-2">{{ disaster.type }}</span></h2>
+
     <h3>{{ disaster.where }}</h3>
     <h4>{{ disaster.details }}</h4>
-    <h4>Volunteers Responded: {{ sizeOf(disaster.volunteers) }}</h4>
+    <h4>Volunteers Responded: {{ sizeOf(disaster.volunteers) }}
+        <md-button ng-click="push()" ng-disabled="!canPush()" class="md-raised md-primary">push</md-button>
+    </h4>
 
     <div layout layout-sm="column">
         <md-list flex>

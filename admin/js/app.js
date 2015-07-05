@@ -50,18 +50,58 @@ app.controller('MainCtrl', ['$scope', '$firebaseObject', '$route', '$routeParams
     }
 ]);
 
-app.controller('DisasterCtrl', ['$scope', '$firebaseObject', '$route', '$routeParams', '$location',
-    function ($scope, $firebaseObject, $route, $routeParams, $location) {
+app.controller('DisasterCtrl', ['$scope', '$mdDialog', '$firebaseObject', '$route', '$routeParams', '$location',
+    function ($scope, $mdDialog, $firebaseObject, $route, $routeParams, $location) {
         this.$route = $route;
         this.$location = $location;
         var disasterRef = new Firebase("https://we-can-help.firebaseio.com/disasters/" + $routeParams.disasterId);
         $scope.disaster = $firebaseObject(disasterRef);
-        $scope.hasResources = function () {
-            if (!$scope.disaster.resources) return false;
-            return Object.keys($scope.disaster.resources).length > 0;
-        }
+        $scope.canPush = function () {
+            return $scope.$parent.sizeOf($scope.disaster.volunteers);
+        };
+        $scope.push = function (ev) {
+            var confirm = $mdDialog
+                .show({
+                    controller: 'RequestDetailsCtrl',
+                    templateUrl: 'volunteers-dialog.tmpl.html',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                })
+                .then(function (data) {
+                    angular.forEach($scope.disaster.volunteers, function (value) {
+                        value.message = data.message;
+                        value.responseStatus = data.responseStatus;
+                    });
+                    $scope.disaster.$save();
+                });
+        };
     }
 ]);
+
+app.controller('RequestDetailsCtrl', ['$scope', '$mdDialog', function ($scope, $mdDialog) {
+    $scope.data = {
+        message: "",
+        responseStatus: 0,
+    };
+
+    $scope.hide = function() {
+        $mdDialog.hide();
+    };
+    $scope.cancel = function() {
+        $mdDialog.cancel();
+    };
+    $scope.notNeeded = function() {
+        $scope.data.responseStatus = 2;
+        $mdDialog.hide($scope.data);
+    };
+    $scope.needed = function() {
+        $scope.data.responseStatus = 1;
+        $mdDialog.hide($scope.data);
+    };
+    $scope.canAnswer = function() {
+        return $scope.data.message.length > 0;
+    };
+}]);
 
 app.controller('RegisterCtrl', function ($scope) {
     var ref = new Firebase("https://we-can-help.firebaseio.com/disasters");
