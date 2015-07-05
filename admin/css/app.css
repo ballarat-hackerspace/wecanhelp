@@ -4,7 +4,7 @@
   margin: inherit;
 }
 
-.angular-google-map-container { height: 400px; }
+.angular-google-map-container { height: 512px; }
 
 .disaster-text {
   color: rgba(0,0,0,0.5);
