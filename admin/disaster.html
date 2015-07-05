@@ -3,8 +3,8 @@
         <h2>Manage Disaster</h2>
         <span flex></span>
         <md-button ng-click="reset()" class="md-raised md-warn">Reset</md-button>
-        <md-button ng-click="push()" ng-disabled="!canPush()" class="md-raised md-primary">Respond</md-button>
-        <md-button ng-click="complete()" nd-disabled="!isCompleted()" class="md-raised md-primary">Complete</md-button>
+        <md-button ng-click="push()" ng-disabled="!canPush() || isCompleted()" class="md-raised md-primary">Respond</md-button>
+        <md-button ng-click="complete()" ng-disabled="isCompleted()" class="md-raised md-primary">Complete</md-button>
     </md-content>
     <md-content layout-padding>
         <div layout layout-sm="column">
@@ -36,9 +36,7 @@
                 <div ng-repeat="resource in disaster.resources">
                     <md-list-item layout layout-sm="column">
                         <p flex="5">{{ $index+1 }}</p>
-
                         <p>{{ resource.required }}</p>
-
                         <p>{{ resource.details }}</p>
                     </md-list-item>
                     <md-divider></md-divider>

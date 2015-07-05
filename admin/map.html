@@ -1,4 +1,6 @@
 <div ng-controller="RegisterCtrl">
     <h2>Disaster Map</h2>
-    <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
+    <ui-gmap-google-map center='map.center' zoom='map.zoom'>
+        <ui-gmap-markers models="markers" coords="'self'"  icon="'icon'" />
+    </ui-gmap-google-map>
 </div>

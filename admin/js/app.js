@@ -15,7 +15,6 @@ app.config(['$routeProvider', function ($routeProvider) {
 }]);
 
 app.config(function (uiGmapGoogleMapApiProvider) {
-    console.log("loading maps");
     uiGmapGoogleMapApiProvider.configure({
         key: 'AIzaSyAPRDqAY5tLbmOGPZeULMzPX4H0HW6Q5wE',
         v: '3.17',
@@ -30,6 +29,19 @@ app.controller('AppCtrl', ['$location', '$firebaseObject', '$scope', '$mdSidenav
     };
     $scope.disasters = $firebaseObject(ref);
     $scope.map = {center: {latitude: -30.816215, longitude: 143.755160}, zoom: 4};
+    $scope.markers = [];
+    $scope.disasters.$loaded(function () {
+        angular.forEach($scope.disasters, function (disaster, i) {
+            console.log(i);
+            console.log(disaster);
+            $scope.markers.push({
+                id: i,
+                latitude: disaster.latlong.latitude,
+                longitude: disaster.latlong.longitude,
+                title: 'm' + i
+            });
+        });
+    });
     $scope.go = function (path) {
         $location.path(path);
     };
@@ -64,7 +76,8 @@ app.controller('DisasterCtrl', ['$scope', '$mdDialog', '$firebaseObject', '$rout
             return $scope.$parent.nonEmpty($scope.disaster.volunteers);
         };
         $scope.isCompleted = function () {
-            return $scope.disaster && $scope.disaster.completed;
+            if(!$scope.disaster) return true;
+            return undefined != $scope.disaster.completed && $scope.disaster.completed;
         }
         $scope.reset = function () {
             $scope.disaster.completed = false;
