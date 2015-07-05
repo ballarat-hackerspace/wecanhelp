@@ -1,5 +1,3 @@
-# wecanhelp
+<img src="https://raw.githubusercontent.com/ballarat-hackerspace/wecanhelp/master/title.png">
 
-<img src="https://raw.githubusercontent.com/ballarat-hackerspace/wecanhelp/master/client/img/logo.png">
-
-GovHack Entry
+GovHack 2015 Entry
