@@ -59,6 +59,25 @@ app.controller('DisasterCtrl', ['$scope', '$mdDialog', '$firebaseObject', '$rout
         $scope.canPush = function () {
             return $scope.$parent.sizeOf($scope.disaster.volunteers);
         };
+        $scope.isCompleted = function () {
+            return $scope.disaster && $scope.disaster.completed;
+        }
+        $scope.reset = function () {
+            $scope.disaster.completed = false;
+            angular.forEach($scope.disaster.volunteers, function (value) {
+                value.message = "";
+                value.responseStatus = 0;
+            });
+            $scope.disaster.$save();
+        }
+        $scope.complete = function () {
+            $scope.disaster.completed = true;
+            angular.forEach($scope.disaster.volunteers, function (value) {
+                value.message = "Thank you for helping.";
+                value.responseStatus = 3;
+            });
+            $scope.disaster.$save();
+        }
         $scope.push = function (ev) {
             var confirm = $mdDialog
                 .show({

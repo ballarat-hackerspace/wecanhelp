@@ -1,31 +1,57 @@
 <div>
-    <h2>{{ disaster.name }} <span class="md-body-2">{{ disaster.type }}</span></h2>
-
-    <h3>{{ disaster.where }}</h3>
-    <h4>{{ disaster.details }}</h4>
-    <h4>Volunteers Responded: {{ sizeOf(disaster.volunteers) }}
-        <md-button ng-click="push()" ng-disabled="!canPush()" class="md-raised md-primary">push</md-button>
-    </h4>
-
-    <div layout layout-sm="column">
-        <md-list flex>
-            <md-divider></md-divider>
-            <div ng-show="!nonEmpty(disaster.resources)">
-                <md-list-item layout layout-sm="column">
-                    <p>No resources where found</p>
-                </md-list-item>
+    <md-content layout layout-sm="column">
+        <h2>Manage Disaster</h2>
+        <span flex></span>
+        <md-button ng-click="reset()" class="md-raised">reset</md-button>
+        <md-button ng-click="push()" ng-disabled="!canPush()" class="md-raised md-primary">Send Response</md-button>
+        <md-button ng-click="complete()" nd-disabled="!isCompleted()" class="md-raised md-primary">Complete</md-button>
+    </md-content>
+    <md-content layout-padding>
+        <div layout layout-sm="column">
+            <md-input-container flex>
+                <label>Volunteers Responded</label>
+                <input ng-model="sizeOf(disaster.volunteers)" disabled>
+            </md-input-container>
+        </div>
+        <div layout layout-sm="column">
+            <md-input-container flex>
+                <label>Disaster Name</label>
+                <input ng-model="disaster.name" disabled>
+            </md-input-container>
+            <md-input-container flex>
+                <label>Disaster Location</label>
+                <input ng-model="disaster.where" disabled>
+            </md-input-container>
+        </div>
+        <div layout layout-sm="column">
+            <md-input-container flex>
+                <label>Disaster Details</label>
+                <input ng-model="disaster.details" disabled>
+            </md-input-container>
+            <md-input-container flex>
+                <label>Disaster Type</label>
+                <input ng-model="disaster.type" disabled>
+            </md-input-container>
+        </div>
+        <div layout layout-sm="column">
+            <md-list flex>
                 <md-divider></md-divider>
-            </div>
-            <div ng-repeat="resource in disaster.resources">
-                <md-list-item layout layout-sm="column">
-                    <p flex="5">{{ $index+1 }}</p>
-
-                    <p>{{ resource.required }}</p>
-
-                    <p>{{ resource.details }}</p>
-                </md-list-item>
-                <md-divider></md-divider>
-            </div>
-        </md-list>
-    </div>
+                <div ng-show="!nonEmpty(disaster.resources)">
+                    <md-list-item layout layout-sm="column">
+                        <p>No resources where found</p>
+                    </md-list-item>
+                    <md-divider></md-divider>
+                </div>
+                <div ng-repeat="resource in disaster.resources">
+                    <md-list-item layout layout-sm="column">
+                        <p flex="5">{{ $index+1 }}</p>
+                        <p>{{ resource.required }}</p>
+                        <p>{{ resource.details }}</p>
+                    </md-list-item>
+                    <md-divider></md-divider>
+                </div>
+            </md-list>
+        </div>
+        <!--<pre>{{ disaster }}</pre>-->
+    </md-content>
 </div>
