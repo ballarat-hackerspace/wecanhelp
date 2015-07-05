@@ -56,8 +56,12 @@ app.controller('DisasterCtrl', ['$scope', '$mdDialog', '$firebaseObject', '$rout
         this.$location = $location;
         var disasterRef = new Firebase("https://we-can-help.firebaseio.com/disasters/" + $routeParams.disasterId);
         $scope.disaster = $firebaseObject(disasterRef);
+        $scope.volunteers = 0;
+        $scope.disaster.$loaded(function () {
+            $scope.volunteers = $scope.$parent.sizeOf($scope.disaster.volunteers);
+        });
         $scope.canPush = function () {
-            return $scope.$parent.sizeOf($scope.disaster.volunteers);
+            return $scope.$parent.nonEmpty($scope.disaster.volunteers);
         };
         $scope.isCompleted = function () {
             return $scope.disaster && $scope.disaster.completed;
@@ -138,7 +142,6 @@ app.controller('RegisterCtrl', function ($scope) {
         $scope.disasterItems.pop();
     };
     $scope.canSave = function () {
-        console.log($scope.disaster);
         return $scope.disaster.name.length > 0 && $scope.disaster.where.length > 0
             && $scope.disaster.details.length > 0 && $scope.disaster.type.length > 0
             && $scope.disasterItems.length > 0;
